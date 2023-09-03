@@ -20,4 +20,27 @@ class Solution:
             del hashmap[output[i]]
         
         return output
-            
+
+    
+    def bucketSortFrequent(self, nums: List[int], k: int) -> List[int]:
+        '''
+         we map numbers as values of a hashmap that tell us the number of occurances each has
+         this let's us only have to have as many keys as the length of the input array
+        '''
+
+        
+        count = {}
+        freq =[[] for i in range(len(nums)+1)] # make a 2d array with empty arrays the size of our input +1
+        
+        for n in nums:
+            count[n] = 1 + count.get(n,0) # if n dosen't exist, it's 0, otherwise its +1
+        
+        for n,c in count.items(): # look over key-value pairs
+            freq[c].append(n)
+
+        res = []
+        for i in range(len(freq) -1,0,-1): # from len -1 to 0, in decending order
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res

@@ -9,6 +9,6 @@ def lastStoneWeight(stones: list[int]) -> int:
             output = big1 - big2
             if output > 0: # if the remainder isn't 0, add it back to the heap
                 heapq.heappush(negstones,-output)
-        return negstones[0]
+        return negstones[0] *-1
 
 print(lastStoneWeight([2,7,4,1,8,1]))
