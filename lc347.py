@@ -26,6 +26,7 @@ class Solution:
         '''
          we map numbers as values of a hashmap that tell us the number of occurances each has
          this let's us only have to have as many keys as the length of the input array
+         then loop through the frequency list and return the top k indexes
         '''
 
         
