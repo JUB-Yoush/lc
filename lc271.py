@@ -10,7 +10,6 @@ def encode(strs)-> str:
 
 def decode(str):
     # write your code here
-  
     output:list = []
     while len(str) != 0:
         strLen = int(str[0])
