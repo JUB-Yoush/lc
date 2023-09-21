@@ -1,16 +1,18 @@
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        charSet = set()
-        l = 0
-        res = 0
+def lengthOfLongestSubstring(s: str) -> int:
+    l = 0
+    r = 1
+    longest = 1
+    charset = set()
+    charset.add(s[0])
+    while r < len(s):
+        if s[r] not in charset:
+            charset.add(s[r])
+            r += 1 #slide window
+            longest = max((r-l),longest)
+        else:
+            charset.remove(s[l])
+            l+= 1 #contract window
+    return longest 
+                
 
-        for r in range(len(s)):
-            while s[r] in charSet:
-                charSet.remove(s[l])
-                l += 1
-            charSet.add(s[r])
-            res = max(res, r - l + 1)
-        return res
-
-        
-
+print(lengthOfLongestSubstring('au'))
