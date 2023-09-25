@@ -1,25 +1,27 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = ListNode()
-        tail = dummy
+import llist
+def mergeTwoLists(list1,list2):
+    curr1 = list1
+    curr2 = list2
+    newlist = llist.ListNode()
+    newlisthead = newlist
+    '''
+    compare current.val
+    append lower one to dummy
+    once one list runs out, append the rest of the other. 
+    '''
+    while curr1 != None and curr2 != None:
+        if curr1.val <= curr2.val:
+            newlist.next = curr1
+            curr1 = curr1.next
+        elif curr1.val >= curr2.val:
+            newlist.next = curr2
+            curr2 = curr2.next
+        newlist = newlist.next
+    
+    if curr1 == None:
+        newlist.next = curr2
+    elif curr2 == None:
+        newlist.next = curr1
+    return newlisthead.next
 
-        while list1 and list2:
-            if list1.val < list2.val:
-                tail.next = list1
-                list1 = list1.next
-            else:
-                tail.next = list2
-                list2 = list2.next
-            tail = tail.next
-        if list1:
-            tail.next = list1
-        elif list2:
-            tail.next = list2
-        
-        return dummy.next
-        
+print(llist.print_list(mergeTwoLists(llist.make_llist([1,2,4])[0],llist.make_llist([1,3,4])[0])))    

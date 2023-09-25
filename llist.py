@@ -1,5 +1,5 @@
 class ListNode:
-    def __init__(self, val, next=None,prev=None):
+    def __init__(self, val=0, next=None,prev=None):
         self.val = val
         self.next = next
         self.prev = prev
@@ -26,6 +26,9 @@ def print_list(head):
         curr = curr.next
         if curr.next != None:
             output += "->"
+
+    output += "->"
+    output+= str(curr.val)
     output += "]"
     return output
 
