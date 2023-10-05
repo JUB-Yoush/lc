@@ -1,23 +1,16 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        dummy = ListNode(0,head)
-        l = dummy
-        r = head
+import llist
+def removeNthFromEnd(head,n): 
+    curr = head
+    delay = head
+    while curr != None:
         for i in range(n):
-            r = r.next
-        
-        while r:
-            l = l.next
-            r = r.next
-        
-        l.next = l.next.next
-        return dummy.next
-        
+            if curr != None:
+                curr = curr.next
+        if delay != None:
+            delay = delay.next
+    # node after delay is the one we need to rm
+    if delay.next != 
+    delay.next = delay.next.next
+    return head 
 
 
-        
