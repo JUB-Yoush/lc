@@ -1,37 +1,49 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def reorderList(self, head: Optional[ListNode]) -> None:
-        """
-        Do not return anything, modify head in-place instead.
-        """
-        slow, fast = head,head.next
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+import llist
 
-        second = slow.next
-        slow.next = None
-        #reverse 2nd half
 
-        prev = None
-        while second:
-            tmp = second.next
-            second.next = prev
-            prev = second
-            second = tmp
+
+"""
+def reorderList(self,head):
+    l = head
+    r = head
+    len = 1
+    # r at end of list
+    while r.next != None:
+        len+= 1
+        r = r.next
+    moves = len//2 # number of nodes we'll have to swap
+
+    for i in range(moves):
+        temp = l.next
+        l.next = r
+        r.next = temp
+"""
+
+
+def reorderList(self,head):
+    # find middle of list
+    fast = head.next
+    slow = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
         
-        # merge two halfs
-        second = prev
-        first = head
-        while second:
-            tmp1, tmp2 = first.next, second.next
-            first.next = second
-            second.next = tmp1
-            first = tmp1
-            second = tmp2
+    # flip 2nd half
+    second = slow.next
+    slow.next = None
+    prev = None
+    while second:
+        tmp = second.next
+        second.next = prev
+        prev = second
+        second = tmp
 
-        
+    #merge halves
+    first, second = head,prev
+    while second:
+        tmp1,tmp2 = first.next, second.next 
+        first.next = second
+        second.next = tmp1
+        first,second = tmp1,tmp2
+
+    
