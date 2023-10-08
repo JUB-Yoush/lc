@@ -1,43 +1,34 @@
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        curr1 = l1
-        curr2 = l2
-        sum = 0
+import llist
+class ListNode:
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
 
-        count = 0
-        # get sum of values
-        while curr1 or curr2:
-            digit1 = 0
-            digit2 = 0
-            if curr1 != None:
-                digit1 = curr1.val
-                curr1 = curr1.next
+def addTwoNumbers(l1, l2):
+    twohead = l2
+    while l1 and l2 != None:
 
-            if curr2 != None:
-                digit2 = curr2.val
-                curr2 = curr2.next
-            
-            sum += (digit1 + digit2) * (10 ** count)
-            count += 1
+        if l1 == None: # if no next value add a leading 0
+            l1 = ListNode(0)
+        if l2 == None: # if no next value add a leading 0
+            l2 = ListNode(0)
 
-        dummy = ListNode()
-        curr = dummy
-        prev = dummy
-        modSum = sum
-        for digit in reversed(str(sum)):
-            curr = ListNode(int(digit))
-            prev.next = curr
-            prev = curr
+        sum = l1.val + l2.val
+        if sum > 9: #if we need to move val up 
+            if l1.next == None: # if no next value add a leading 0
+                l1.next = ListNode(0)
+            l1.next += 1 # add one (10)
+            sum -= 10
+        l2.val = sum
+        l1 = l1.next
+        l2 = l2.next
+    return twohead
+
+
+addTwoNumbers(llist.make_llist([9,9,9])[0],llist.make_llist([9,9,9])[0])
+
+
         
-        return dummy.next
-
-            
-            
-
             
 
