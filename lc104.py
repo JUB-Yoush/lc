@@ -1,15 +1,8 @@
 import binarytree
-def maxDepth(root):
-	print(root)
-	return recursiveCheck(root)
-
-def recursiveCheck(branch):
-	print(branch)
-	if branch.right != None:
-		return 1 + recursiveCheck(branch.right)
-	if branch.left != None:
-		return 1 + recursiveCheck(branch.left)
-	else:
+def maxDepth(self, root: TreeNode) -> int:
+	if not root:
 		return 0
+
+	return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
 print(maxDepth(binarytree.tree(height=3)))
