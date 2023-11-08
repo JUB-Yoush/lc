@@ -23,7 +23,7 @@ def findDuplicate(nums) -> int:
 print(findDuplicate([3,1,3,4,2]))
 
 #works
-class Solution:
+class Solution1:
     def findDuplicate(self, nums: List[int]) -> int:
         slow,fast =0,0
         while True:
@@ -40,4 +40,16 @@ class Solution:
                 return slow
 
 
+# might as well be o(n^2)
+class Solution:
+    def findDuplicate(self,nums):
+        fast = 0
+        slow = 0
+        while True:
+            fast += 2
+            slow += 1
+            fast = fast % (len(nums)-1)
+            slow = slow % (len(nums)-1)
+            if nums[fast] == nums[slow] and fast != slow:
+                return nums[fast]
             
