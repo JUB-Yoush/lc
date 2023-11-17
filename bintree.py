@@ -20,7 +20,11 @@ class TreeNode:
 			# get diameters of both children
 			left = dfs(root.left)
 			
+	
+	def is_balanced(root):
+		pass
 
+     
 
 
 def make_tree(inputArr):
