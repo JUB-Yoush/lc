@@ -11,4 +11,5 @@ class Solution:
 			
 			if p.left == q.left and p.right == q.right:
 				return sameSubTree(p.left,q.left)
+		return sameSubTree(p,q)
 			

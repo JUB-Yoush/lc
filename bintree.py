@@ -52,6 +52,7 @@ def render_tree(root):
 def same_tree(root1,root2):
 	# return if two trees are the same
 
+	pass
 
 def make_tree(inputArr):
 	# take an array of numbers and turn it into a binary tree
