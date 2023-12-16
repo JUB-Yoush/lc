@@ -20,7 +20,7 @@ class KthLargest:
         heapq.heappush(self.minHeap,val)
         while len(self.minHeap) > k:
             heapq.heappop(self.minHeap)
-        return k[0] # min value will be value we look for
+        return self.minHeap[0] # min value will be value we look for
 
 
 # Your KthLargest object will be instantiated and called as such:
