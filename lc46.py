@@ -38,3 +38,22 @@ class Solution:
 
 sol = Solution()
 print(sol.permute([1,2,3]))
+
+
+#neetcode sol
+#The extend() method adds all the elements of an iterable (list, tuple, string etc.) to the end of the list.
+
+class Solution:
+	def permute(self, nums):
+		result = []
+		if len(nums) ==1:
+			return [nums.copy()]
+		perms = self.permute(nums)
+		for i in range(len(nums)):
+			n = nums.pop(0)
+
+			for perm in perms:
+				perm.append(n)
+			result.extend(perms)
+			nums.append(n)
+		return result
