@@ -26,8 +26,12 @@ class Solution:
 				return
 			curr_list.append(candidates[i])
 			dfs(curr_list,i+1)
-			curr_list.pop()
-			dfs(curr_list,i+1)
+			skipped_val = curr_list.pop()
+			while candidates[i] == skipped_val:
+				i+=1
+				if i == len(candidates):
+					return
+			dfs(curr_list,i)
 		dfs([],0)
 		return res
 
