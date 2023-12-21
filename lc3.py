@@ -15,4 +15,19 @@ def lengthOfLongestSubstring(s: str) -> int:
     return longest 
                 
 
+
+
+
+'''
+left right pointer on 0 and 0
+use set to keep track of numbers in memory
+if duplicate detected, move left up and pop values from set until no more duplicates 
+'''
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        
+
+
+
+
 print(lengthOfLongestSubstring('au'))

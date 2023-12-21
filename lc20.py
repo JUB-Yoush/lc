@@ -1,3 +1,10 @@
+'''
+add values to stack 
+make a mapping of opening and closing brackets
+add openeings to stack 
+if closing then check if opening is at top of stack 
+if not then bad
+'''
 class Solution:
     def isValid(self, s: str) -> bool:
         ref = {'(':')','{':'}','[':']'}
