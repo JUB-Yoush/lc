@@ -15,12 +15,47 @@ def searchMatrix(matrix: list[list[int]], target: int) -> bool:
 			answer_row = matrix[center]
 			
 
-def searchMatrix2(matrix,target):
-	"""
-	check when l<t<r
-	it'd have to be in that row
-	pass that row into a binary search
-	"""
-	pass
+#https://leetcode.com/problems/search-a-2d-matrix/description/
+class Solution:
+	def searchMatrix(self,matrix,target):
+		"""
+		binsearch on cols first
+		find row where l < t < r
+		if value exists it'd have to be there
+		pass that row into a binary search
+		"""
+		l = 0
+		r = len(matrix) -1
+		while l<=r:
+			m = (l + r) //2
+			if matrix[m][0] == target:
+				return True
+			# they're next to each other, pass in row to do binary search
+			if r - l == 1:
+				binsearch(matrix[m])
+			if matrix[l][0] < target and matrix[m][0] > target:
+				r = m 
+				m = (l+r)//2
+			elif matrix[m][0] < target and matrix[r][0] > target:
+				l = m 
+				m = (l+r)//2
+
+			
+		def binsearch(row):
+			nonlocal target
+			l = 0
+			r = len(row) -1
+			while l<=r:
+				m = (l + r) //2
+				if row[m] == target:
+					return True
+				# they're next to each other, pass in row to do binary search
+				if row[l] < target and row[m] > target:
+					r = m 
+					m = (l+r)//2
+				elif row[m] < target and row[r] > target:
+					l = m 
+					m = (l+r)//2
+			return False
 
 print(searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]],3))
