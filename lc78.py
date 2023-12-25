@@ -12,7 +12,7 @@ should be recursive though
 when does it end: when subset.len = 2^n
 """
 
-class Solution:
+class Solution2:
 	def subsets(self, nums):
 		subsets = set()
 		def add_value(subset,index):
@@ -27,7 +27,7 @@ class Solution:
 		return subsets
 
 # neetcode soulution (mine don't work cuz mutability stuff w python)
-class Solution:
+class Solution1:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
 
@@ -64,3 +64,28 @@ class Solution:
 
         dfs(0)
         return res
+
+'''
+at every step, chose [] or the current value
+iterate up by 1
+once at end of array append what you have
+
+'''
+class Solution:
+    def subsets(self,nums):
+        output = []
+        def choice(curr_set,i):
+            nonlocal output
+            if i == len(nums):
+                output.append(curr_set.copy())
+                return
+            #add number then undo
+            curr_set.append(nums[i])
+            choice(curr_set,i+1)
+            curr_set.pop()
+            choice(curr_set,i+1)
+        choice([],0)
+        return output
+
+print(Solution.subsets())
+        
