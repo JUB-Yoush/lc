@@ -30,22 +30,55 @@ I'll need to:
 - pair pointers with l and r
 - when you find a dip, while loop through w r until you find another height that can match l
 - if there is one, then loop back over and collect rain?
+
+- lr pointers
+- if r is less than l, loop through until a height of at least equal to l is found again
+- if so, we collected the rain from then to there
+- collect that rain and move l back to r
 '''
-class Solution:
+class Solution1:
 	def trap(self, height):
 		l,r=0,0
 		water = 0
-		while r < len(height):
+		while r < len(height)-1:
 			if height[r+1] >= height[l]:
 				r += 1
 				l = r
 			else:
 				r += 1
-				while height[r] < height[l] and r < len(height):
-					water += (height[l] - height[r])
+				potential_water = 0
+				is_basin = True
+				while height[r] < height[l]:
+					potential_water += (height[l] - height[r])
 					r+= 1
-				l = r
+					if r == len(height):
+						is_basin = False
+						break
+				if is_basin:
+					water += potential_water 
+					l = r
+				else:
+					l+=1
+					r = l
 		return water
 
+# wow my solution was absolutley off
+class Solution1:
+	def trap(self, height):
+		l,r = 0,len(height) -1
+		left_max, right_max = height[l], height[r]
+		res = 0
+		while l<r:
+			if left_max < right_max:
+				l+= 1
+				left_max = max(left_max,height[l])
+				res += left_max - height[l]
+			else:
+				r -=1
+				right_max = max(right_max,height[r])
+				res += right_max - height[r]
+			return res
+		
 
-print(Solution.trap(None,[0,1,0,2,1,0,1,3,2,1,2,1]))
+
+print(Solution.trap(None,[4,2,3]))
