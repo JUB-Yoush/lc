@@ -11,7 +11,7 @@ do a dfs starting at whatever I guess
 when we return from a value pop it from the list of prereqs
 '''
 #neetcode, will review question
-class Solution:
+class Solution1:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         # dfs
         preMap = {i: [] for i in range(numCourses)}
@@ -42,5 +42,11 @@ class Solution:
         return True
 
 
-
-		
+'''
+back at it again
+create a hashmap of a course and it's prereqs
+traverse though the array in a bfs and check if all courses have all their pre-reqs gone?
+(when you reach a course from a certain course, remove that prereq from that courses hashmap key???)
+'''
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:

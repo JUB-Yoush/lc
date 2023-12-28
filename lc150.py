@@ -1,21 +1,29 @@
+#https://leetcode.com/problems/evaluate-reverse-polish-notation/
+'''
+add values to stack 
+do operation on last two things
+push result back onto the stack
+'''
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        stack=[]
-        for c in tokens:
-            if c=="+":
-                stack.append(stack.pop() + stack.pop())
-            elif c == "-":
-                a,b = stack.pop(), stack.pop()
-                stack.append(b-a)
-            elif c == "*":
-                stack.append(stack.pop() * stack.pop())
-            elif c == "/":
-                a,b = stack.pop(),stack.pop()
-                stack.append(int(b/a))
-            else:
-                stack.append(int(c))
-            
-        return stack[0]
+    def evalRPN(self, tokens) -> int:
+        stack = []
+        for token in tokens:
+            try:
+                number = int(token)
+                stack.append(number)
+            except ValueError:
+                if token =="+":
+                    stack.append(stack.pop() + stack.pop())
+                elif token =="-":
+                    first = stack.pop()
+                    second = stack.pop()
+                    stack.append(second - first)
+                elif token =="*":
+                    stack.append(stack.pop() * stack.pop())
+                elif token =="/":
+                    first = stack.pop()
+                    second = stack.pop()
+                    stack.append(int(second/ first))
+        return stack.pop()
 
-
-
+print(Solution.evalRPN(None,["10","6","9","3","+","-11","*","/","*","17","+","5","+"]))
