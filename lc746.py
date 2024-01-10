@@ -31,11 +31,34 @@ start at the top
 cacluate the cost from the top step and the top-1 step
 store those values then calcualte the previous two
 '''
+
+'''
+we're so back
+base case. there is 1 step
+you can start at step [1] and pay nothing
+I don't think there will ever be 1 step
+2 steps
+you pick the lower between the two steps
+and then from there going to n+1 or n+2 would be the top
+
+3 steps is where more then one decision is made
+[10,15,20,0]
+I could either start at 10 or 15
+what would influence that decision
+the total cost of the current step + all my future options
+in the climb stairs problem just take the last two and sum them up
+
+'''
+
 class Solution:
 	def minCostClimbingStairs(self, cost: List[int]) -> int:
-		cost.append(0)
-		for i in range(len(cost) -3,-1,-1):
-			cost[i] += min(cost[i+1],cost[i+2])
-		return min(cost[0],cost[1])
+		dp = [0] * 2
+		for c in reversed(cost):
+			curr_cost = c + min(dp[0],dp[1])
+			dp[0] = dp[1]
+			dp[1] = curr_cost
+		return min(dp[0],dp[1])
+			
+
 
 

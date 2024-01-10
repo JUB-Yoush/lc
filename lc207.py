@@ -10,43 +10,101 @@ make a hashmap of a course and it's prereqs
 do a dfs starting at whatever I guess
 when we return from a value pop it from the list of prereqs
 '''
-#neetcode, will review question
-class Solution1:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # dfs
-        preMap = {i: [] for i in range(numCourses)}
 
-        # map each course to : prereq list
-        for crs, pre in prerequisites:
-            preMap[crs].append(pre)
-
-        visiting = set()
-
-        def dfs(crs):
-            if crs in visiting:
-                return False
-            if preMap[crs] == []:
-                return True
-
-            visiting.add(crs)
-            for pre in preMap[crs]:
-                if not dfs(pre):
-                    return False
-            visiting.remove(crs)
-            preMap[crs] = []
-            return True
-
-        for c in range(numCourses):
-            if not dfs(c):
-                return False
-        return True
 
 
 '''
 back at it again
 create a hashmap of a course and it's prereqs
 traverse though the array in a bfs and check if all courses have all their pre-reqs gone?
+[[0,1],[0,2],[1,3],[1,4],[3,4]]
+hashmap:
+0:1,2
+1:3,4
+3:4
+4:None
+pick first course and traverse though, see if you can reach everything else?
+start at 0
+go to 1 
+goes to 3
+goes to 4
+nowhere to go, unmark 4 from 3
+unmark 3 from 1
+unmark 1 from 0
+go to 2
+unmark 2 from 0 
+0 has no pre-reqs
+move to next course
 (when you reach a course from a certain course, remove that prereq from that courses hashmap key???)
 '''
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # stores course as key and prereqs as values
+        courseMap = {}
+
+        def dfs(parentCourse,currCourse):
+            for preReq in courseMap[currCourse]:
+                dfs(currCourse,preReq)
+            if len(courseMap[currCourse]) == 0:
+                courseMap[parentCourse].remove(currCourse)
+                return
+                
+        for course in prerequisites:
+            if course[0] not in courseMap:
+                courseMap[course[0]] = []
+            courseMap[course[0]].append(course[1])
+       
+            for i in range(numCourses):
+                #if it has pre-reqs
+                if i in courseMap:
+                    if len(courseMap[i]) != 0:
+                        pass
+
+            
+            for i in range(numCourses):
+                if i in courseMap:
+                    if courseMap[i] != []:
+                        return False
+            return True
+
+
+
+'''
+had to (keep) doing it to em
+instead of a hashmap, I could use an array
+I could dfs over every prereq in the array
+then finally loop back over it and check that all prereqs are empty
+if not empty then return false
+'''
+
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        visited = set()
+        courses = [[]] * numCourses
+        for preReq in prerequisites:
+            courses[preReq[0]].append(preReq[1])
+
+        def dfs(prevCourse,currCourse):
+            
+            if currCourse in visited:
+                return False
+            if courses[currCourse] == []:
+                return True
+            
+            visited.add(currCourse)
+            for i in range(len(courses[currCourse])):
+               if not dfs(i,courses[i][0]): return False
+            visited.remove(currCourse)
+            courses[currCourse] = []
+            return True
+
+        for i in range(len(courses)):
+            if len(courses[i]) != 0:
+                dfs(i,courses[i][0])
+        
+
+
+
+
+

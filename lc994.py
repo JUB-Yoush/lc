@@ -81,3 +81,46 @@ class Solution:
 		return time
 
 print(Solution.orangesRotting([[2,1,1],[1,1,0],[0,1,1]]))
+
+
+
+from collections import deque
+'''
+breadth first search on a matrix
+how does I do that
+have a queue to keep track of neighbor nodes I've visited
+iterate time after all the neighbors have been visited
+'''
+class Solution:
+	def orangesRotting(self,grid):
+		ROWS, COLS = len(grid), len(grid[0])
+		visited = set()
+		queue = deque()
+		minutes = 0
+		for r in range(ROWS):
+			for c in range(COLS):
+				if grid[r][c] == 2:
+					queue.append((r,c))
+					visited.add((r,c))
+
+		while queue:
+			for i in range(len(queue)):
+				r,c = queue.popleft()
+				neighbors = [[0,1],[0,-1],[1,0],[-1,0]]
+				for n in neighbors:
+					r,c = r+n[0], c+n[1]
+					#fresh orange within bounds
+					if r < ROWS and c < COLS and min(r,c) > -1 and grid[r][c] == 1:
+						queue.append((r,c))
+						grid[r][c] = 2
+			if len(queue) > 0:
+				minutes += 1
+				
+		for r in range(ROWS):
+			for c in range(COLS):
+				if grid[r][c] == 1:
+					return -1
+
+		return minutes
+
+					

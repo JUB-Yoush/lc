@@ -1,4 +1,3 @@
-# needs DP, will return
 class Solution:
     def climbStairs(self, n: int) -> int:
         cache = {}
@@ -17,3 +16,19 @@ class Solution:
 
 print(Solution.climbStairs(None,2))
 
+'''
+use a real dp approach
+'''
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        dp = [] * len(n) +1
+        starprev1 = 1
+        starprev2 = 1
+        for i in range(n-1):
+            new_stair = starprev1 + starprev2
+            temp = starprev2
+            starprev2 = new_stair
+            starprev1 = temp
+        return starprev2
+
+    

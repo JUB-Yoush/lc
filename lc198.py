@@ -53,21 +53,37 @@ temp = max(rob1,rob2) == 1
 
 for n in nums
 
+'''
 
 '''
-# 	WHAT
+round... 3?
+5,9,1,1,30,20
+we can either rob the 0th house and all others but [1], or skip house and consider all the others
+so I'm always comparing the amount I could get from house [0] or [1]
+so nums[0] + nums[2:]
+or nums[1:]
+we want to write down the total potential sum at each point
+but considering we only care about the last two houses we can just store those?
+lets focus on the simpler all array solution for now
+self + max of previous two amounts
+start from 3rd value
+auto assign dp[0] and [1] to first two values
+I felt the neurons firing for that one
+1 + max(5,9) = 10
+update values
+1+ max(9,10) = 11
+'''
 class Solution:
 	def rob(self, nums: List[int]) -> int:
-		rob1,rob2=0,0
+		dp = [0] * 2
 		for n in nums:
-			temp = max(n+rob1,rob2) 
-			rob1 = rob2
-			rob2 = temp
-		return rob2
-	
-				
+			new_total = max(n+ dp[0],dp[1])
+			dp[0] = dp[1]
+			dp[1] = new_total
+		return max(dp[0],dp[1])
 
 
-			
+
+
 
 
