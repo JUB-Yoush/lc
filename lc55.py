@@ -14,7 +14,7 @@ we always pick the highest value
 repeat until base case
 if the largest distance is a 0 then return false
 '''
-class Solution:
+class Solution1:
 	def canJump(self, nums) -> bool:
 		i = 0
 		while True:
@@ -40,16 +40,27 @@ class Solution:
 			if nums[i] == 0:
 				return False
 
-print(Solution.canJump(None,[0]))
 #dp!?
-class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        goal = len(nums) - 1
+# check if last-1 can reach last
+# if so decrement last
+# if last == 0 then return true
+'''
+[2,3,1,1,4]
 
-        for i in range(len(nums) - 2, -1, -1):
-            if i + nums[i] >= goal:
-                goal = i
-        return goal == 0
+[3,2,2,0,4]
+'''
+class Solution:
+	def canJump(self, nums) -> bool:
+		goal = len(nums) -1
+		i = len(nums) -2
+		while i >= 0:
+			if nums[i] >= (goal-i):
+				goal -= 1
+			i-=1
+		return goal == 0
+
+
+print(Solution.canJump(None,[2,3,1,1,4]))
 
 
 
