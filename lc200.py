@@ -94,3 +94,15 @@ class Solution2:
 		return islands
 
 print(Solution2.numIslands([["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]))
+
+
+'''
+review:
+loop through tiles
+mark visited tiles in visited set 
+if tile is island then dfs
+'''
+class Solution3:
+	def numIslands(self, grid):
+		
+		pass

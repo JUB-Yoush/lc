@@ -1,4 +1,17 @@
 #https://leetcode.com/problems/house-robber/
+
+class Solution1:
+	def rob(self, nums) -> int:
+		house1 = 0
+		house2 = 0
+		for num in nums:
+			newhouse = max(house2 + num,house1)
+			house2 = house1
+			house1 = newhouse
+		return max(house1,house2)
+
+
+
 '''
 iconic leetcode
 it's a dp problem

@@ -80,7 +80,6 @@ class Solution:
 					return -1
 		return time
 
-print(Solution.orangesRotting([[2,1,1],[1,1,0],[0,1,1]]))
 
 
 
@@ -123,4 +122,46 @@ class Solution:
 
 		return minutes
 
+
+'''
+use a queue to work in waves
+start by collecting all the initial rotten oranges and add them to a queue
+then check their neighbors and see which ones rot, append to queue
+repeat until queue is empty 
+return time
+try to solve without modifying the input grid
+'''
+class Solution3:
+	def orangesRotting(self, grid):
+		time = 0
+		queue = deque()
+		ROWS, COLS = len(grid), len(grid[0])
+		DIRECTIONS = [[-1,0],[0,1],[1,0],[0,-1]]
+		fresh_oranges = False
+
+		for r in range(ROWS):
+			for c in range(COLS):
+				if grid[r][c] == 2:
+					queue.append((r,c))
+				if grid[r][c] == 1:
+					fresh_oranges = True
+
+		if not fresh_oranges:
+			return 0
 					
+		while queue:
+			for i in range(len(queue)):
+				r,c = queue.popleft()
+				for dir in DIRECTIONS:
+					r = r+dir[0]
+					c = c+dir[1]
+					if r < ROWS and c < COLS and min(r,c) > -1 and grid[r][c] == 1:
+						queue.append((r,c))
+						grid[r][c] = 2
+			if len(queue) > 0:
+				time += 1
+		return time
+
+print(Solution3.orangesRotting(None,[[2,1,1],[1,1,0],[0,1,1]]))
+
+

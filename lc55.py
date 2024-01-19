@@ -65,3 +65,6 @@ print(Solution.canJump(None,[2,3,1,1,4]))
 
 
 
+class Solution2:
+	def canJump(self, nums) -> bool:
+		
