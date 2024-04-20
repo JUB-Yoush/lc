@@ -11,7 +11,7 @@ use a for loop
 for value in remaining:
 	add(value,remaining.pop(value))
 '''
-class Solution:
+class Solutionold:
 	def permute(self, nums):
 		res = []
 		#values we've added and the remaining ones to pick from
@@ -32,18 +32,16 @@ class Solution:
 				used = curr_list.pop()
 				remaining.append(used)
 
-	
+
 		add([],nums.copy())
 		return res
 
-sol = Solution()
-print(sol.permute([1,2,3]))
 
 
 #neetcode sol
 #The extend() method adds all the elements of an iterable (list, tuple, string etc.) to the end of the list.
 
-class Solution:
+class Solutionneet:
 	def permute(self, nums):
 		result = []
 		if len(nums) ==1:
@@ -57,3 +55,23 @@ class Solution:
 			result.extend(perms)
 			nums.append(n)
 		return result
+
+# new sol
+class Solution:
+	def permute(self, nums):
+		output = []
+		def helper(curr,remaining):
+			if len(curr) == len(nums):
+				output.append(curr.copy())
+				return
+			looper = remaining.copy()
+			for num in looper:
+				curr.append(num)
+				remaining.remove(num)
+				helper(curr,remaining)
+				curr.remove(num)
+				remaining.append(num)
+		helper([],nums.copy())
+		return output
+
+print(Solution.permute(None,[1,2,3]))

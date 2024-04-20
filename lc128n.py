@@ -19,4 +19,3 @@ def longestConsecutive(nums: list[int]) -> int:
 	return max_chain
 
 print(longestConsecutive([0,-1]))
-        

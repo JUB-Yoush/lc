@@ -37,8 +37,8 @@ unmark 2 from 0
 move to next course
 (when you reach a course from a certain course, remove that prereq from that courses hashmap key???)
 '''
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+class Soluti:
+    def canFinish(self, numCourses: int, prerequisites) -> bool:
         # stores course as key and prereqs as values
         courseMap = {}
 
@@ -78,8 +78,8 @@ if not empty then return false
 '''
 
 
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+class Solutio:
+    def canFinish(self, numCourses: int, prerequisites) -> bool:
         visited = set()
         courses = [[]] * numCourses
         for preReq in prerequisites:
@@ -104,6 +104,46 @@ class Solution:
                 dfs(i,courses[i][0])
         
 
+
+
+
+
+'''
+create graph based on pairs
+graph is directed, prereqes aren't commutitive
+start from course w no pres, traverse from one course to another in a dfs, maintain visited set
+if you were able to add every course to your visited set then it's true
+remove prereqs as you find them
+if not then you could never reach every course, so it's false?
+'''
+class Solution:
+    def canFinish(self, numCourses, prerequisites):
+
+        course_graph = [[] for _ in range(numCourses)]
+        
+        for course in prerequisites:
+            course_graph[course[0]].append(course[1])
+
+        def dfs(i):
+            for prereq in course_graph[i]:
+                if len(course_graph[prereq]) == 0 or course_graph[prereq][0] == -1:
+                    course_graph[i].remove(prereq)
+                if dfs(prereq): 
+                    course_graph[i].remove(prereq)
+            course_graph[i].append(-1)
+            return True
+        
+        dfs(0)
+        for course in course_graph:
+            if course != []:
+                return False
+    
+print(Solution.canFinish(None,5,[[0,1],[0,2],[1,3],[1,4],[3,4]]))
+        
+        
+
+        
+        
 
 
 

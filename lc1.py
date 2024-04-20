@@ -5,4 +5,3 @@ class Solution:
         for i,num in enumerate(nums):
             if nums.count(target-num) > 0 and nums.index(target-num) != i:
                 return [nums.index(target-num),i]
-        
