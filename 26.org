@@ -1,0 +1,9 @@
+#+title: 26
+* <Problem Name>
+** [[][link]]
+** Notes
+** code
+#+begin_src python
+print('amongus')
+print('sus')
+#+end_src

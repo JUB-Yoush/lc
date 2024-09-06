@@ -4,7 +4,7 @@ class ListNode:
         self.next = next
         self.prev = prev
 
-def make_llist(input)   : 
+def make_llist(input):
     head = ListNode(input[0])
     head.prev = None
     input.pop(0)
@@ -19,7 +19,7 @@ def make_llist(input)   :
 
 def print_list(head):
     output = ""
-    curr = head 
+    curr = head
     output += "["
     while curr.next != None:
         output += str(curr.val)
@@ -32,5 +32,4 @@ def print_list(head):
     output += "]"
     return output
 
-    
-        
+
