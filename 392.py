@@ -8,10 +8,14 @@ and make sure they're in order?
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         ptr = 0
-        while ptr < len(s):
-            if s[ptr] == t:
-                ptr += 1
-            t+= 1
-            if t == len(t):
+        i = 0
+        while ptr != len(s):
+            if i == len(t):
                 return False
+            if s[ptr] == t[i]:
+                ptr += 1
+            i += 1
         return True
+
+
+print(Solution.isSubsequence(None,"abc","ahbgdc"))
