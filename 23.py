@@ -25,7 +25,7 @@ class Solution(object):
                 values.append(curr.val)
                 curr = curr.next
 
-        values = mergeSort(values)
+        values = values.sort()
 
         for i in range(len(lists)):
             curr = lists[i]
@@ -33,7 +33,7 @@ class Solution(object):
                 curr.val = values.pop(0)
                 curr = curr.next
             #stitch to other list head
-            if i < len(lists)-1:
+            if lists[i+1] != None:
                 curr.next = lists[i+1]
         return lists[0]
 

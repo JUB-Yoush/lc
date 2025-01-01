@@ -1,0 +1,54 @@
+#+title: 133. Clone Graph
+https://leetcode.com/problems/clone-graph/
+* problem
+Given a reference of a node in a connected undirected graph.
+
+Return a deep copy (clone) of the graph.
+
+Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
+
+class Node {
+    public int val;
+    public List<Node> neighbors;
+}
+
+* Thinking
+I know this one
+use a hashmap to map old nodes to new nodes
+then go over the old graph and re-make all the connections
+ez
+
+* Code
+#+begin_src python
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+class Solution:
+    def cloneGraph(self,node):
+        if node == None:
+            return None
+        old2new = {}
+        visited = set()
+        queue = deque()
+        queue.append(node)
+        old2new[node] = Node(node.val)
+        visited.add(node)
+        while queue:
+            curr = queue.popleft()
+            for n in curr.neighbors:
+                if n not in old2new:
+                    old2new[n] = Node(n.val)
+                old2new[curr].neighbors.append(old2new[n])
+                if n not in visited:
+                    queue.append(n)
+                    visited.add(n)
+        return old2new[node]
+#+end_src
+* solution
+map old nodes to new nodes
+traverse the tree using the old nodes as a reference
+bfs/dfs + hashmap

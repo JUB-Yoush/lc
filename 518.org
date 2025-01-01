@@ -1,0 +1,75 @@
+#+title: 518. Coin Change II
+* problem
+You are given an integer array ~coins~ representing coins of different denominations and an integer ~amount~ representing a total amount of money.
+
+Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination of the coins, return ~0~.
+
+You may assume that you have an infinite number of each kind of coin.
+
+The answer is guaranteed to fit into a signed 32-bit integer.
+
+* test cases
+Example 1:
+
+Input: amount = 5, coins = [1,2,5]
+Output: 4
+Explanation: there are four ways to make up the amount:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+
+Example 2:
+
+Input: amount = 3, coins = [2]
+Output: 0
+Explanation: the amount of 3 cannot be made up just with coins of 2.
+
+Example 3:
+
+Input: amount = 10, coins = [10]
+Output: 1
+
+* thinking
+- This is a backtracking problem
+- At any point I can chose to add a coin or to not add a coin.
+- I am to return the number of combinations
+- once I find a combination, I add it to a total sum
+- I need to avoid repeat combonations
+- could I treat it in a greedy manner and check all combos that start at 5, then 2, then 1?
+- ik greed doesn't work for cc1
+- but cc1 is the smallest, this is the total count
+* potential solution
+- I start from largest to smallest index n-1 to 0
+- for every value I either add it + move, add it + stay, or skip.
+- if the amount is valid, I increment the sum
+- would there be a case where we'd have duplicate inputs?
+* code
+#+begin_src python
+class Solution:
+    def change(self,amount:int, coins) -> int:
+        cache = {}
+        def pick(i,sum):
+            if sum == amount:
+                return 1
+            if sum > amount:
+                return 0
+            if i == len(coins):
+                return 0
+            if (i,sum) in cache:
+                return cache[(i,sum)]
+            cache[(i,sum)] = pick(i,sum+coins[i]) + pick(i+1, sum)
+            return cache[(i,sum)]
+        return pick(0,0)
+
+
+print(Solution.change(None,5,[1,2,5]))
+
+#+end_src
+
+#+RESULTS:
+: None
+* things learned
+- you just need to do add and skip, add + stay isn't a nessicary branch
+- this was a DP problem, I wasn't able to find the repeated work (the repeat work is the current index and sum, so it'd 2d dp?)
+- I am out of practice.
