@@ -1,4 +1,13 @@
-#https://leetcode.com/problems/merge-two-sorted-lists/description/
+"""
+solution:
+use a pointer starting at the beginning of each respective list
+every iteration, pick the lower of the two and append that to a dummy node
+once one of the lists runs out, simply append all of the remaining one
+return the node after the dummy node
+"""
+
+
+# https://leetcode.com/problems/merge-two-sorted-lists/description/
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, val=0, next=None):
@@ -31,4 +40,3 @@ class Solution(object):
         elif curr2 == None:
             curr.next = curr1
         return currHead.next
-
