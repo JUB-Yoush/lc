@@ -1,40 +1,35 @@
 """
-l1 and l2 at beginning
-add number together, use dummy node to make new list
-if number > 9, subtract by 9 and add it to the next value
-if final number is >9, make a new node.
-if l1 or l2 run out, just append the rest of the remaining one
+check if graph has any cycles (cyclic prerequisites)
+make adj list
+go through every node in dfs
+if prereqs are completed (or empty), pop
+add to set, dfs on it's prerequisites
+"""
+
+"""
+split string by / to make folders
+push folders that aren't "." or "" to the stack
+pop from the stack when it's ".."
+re-assemble the canon path based on folder stack
+remove trailing /
 """
 
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
 class Solution:
-    def addTwoNumbers(self, l1, l2):
-        dummy = ListNode()
-        curr = dummy
-        while l1 and l2:
-            sum = l1.val + l2.val
-            # carry the 1
-            if sum >= 10:
-                sum -= 10
-                if not l1.next:
-                    l1.next = ListNode(0)
-                if not l2.next:
-                    l2.next = ListNode(0)
-                l1.next.val += 1
-            next_node = ListNode(sum)
-            curr.next = next_node
-            curr = next_node
-            l1 = l1.next
-            l2 = l2.next
-        if l1:
-            curr.next = l1
-        if l2:
-            curr.next = l2
+    def simplifyPath(self, path):
+        folders = path.split("/")
+        dir_stack = []
+        res = "/"
+        for folder in folders:
+            if folder == "." or "":
+                continue
+            if folder == "..":
+                if len(dir_stack) > 1:
+                    dir_stack.pop()
+                continue
+            dir_stack.append(folder)
 
-        return dummy.next
+        for folder in dir_stack:
+            res += f"{folder}/"
+
+        return res[:-1]
