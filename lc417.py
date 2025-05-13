@@ -1,33 +1,48 @@
-#https://leetcode.com/problems/pacific-atlantic-water-flow/
-'''
-the bf approach would be to check if very value at every position can reach both oceans
-but there is some repeated work there, if there is a row [1,2,3,2,1] then when we find that 3 can make it to both, 
-wait nvm
-in that example 1 and 2 couldn't pass 3
-if n can make it to an ocean then all the values it traversed can also make it to that ocean
-we wouldn't need to check them
-we can keep a set of all the values traversed, once the branch is able to make it to an ocean append it to a atlantic or pacific set
-return the intersection of both sets (only the values that can atlantic and pacific)
-brb blowing nose
-damn my nose was full 
-anyway 
-yeah two sets
-loop through every value, 
-check if it's in either set
-if it's not, we haven't checked at it before
-although we'd want to have a generic checked list
-because we could check somthing but only checked for one ocean 
-so in the case we check a value
-we recursivley try to navigate in all 4 direction, managing the values along the path
-if we reach an ocean, append all values to that oceans set
+# https://leetcode.com/problems/pacific-atlantic-water-flow/
+"""
+It's a dfs
+find all tiles that can reach pac, find all tiles that can reach atl
+find the intersection of both sets and return that
+you can figure out if a tile can reach an ocean by starting at an edge and dfsing every edge that can be flown from (check if it has a larger height)
+simple really
+"""
 
-go through each edge and append them to their sets
-check for each value in that row if other values are able to 
-'''
+
 class Solution:
-	def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-		ROWS, COLS = len(heights), len(heights[0])
-		pacific,atlantic = set(),set()
-		for c in range(COLS):
-			pass
+    def pacificAtlantic(self, heights):
+        def reaches(r, c, target_set, prev_height):
+            # invalid cell (oob or can't flow)
+            if (
+                (r, c) in target_set
+                or r < 0
+                or c < 0
+                or r == ROWS
+                or c == COLS
+                or heights[r][c] < prev_height
+            ):
+                return
 
+            target_set.add((r, c))
+
+            for dir in DIRS:
+                dr = r + dir[0]
+                dc = c + dir[1]
+                reaches(dr, dc, target_set, heights[r][c])
+
+        DIRS = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        ROWS = len(heights)
+        COLS = len(heights[0])
+        reach_pac = set()
+        reach_atl = set()
+
+        # dfs starting from edges
+        for c in range(COLS):
+            reaches(0, c, reach_pac, heights[0][c])
+            reaches(ROWS - 1, c, reach_atl, heights[ROWS - 1][c])
+
+        for r in range(ROWS):
+            reaches(r, 0, reach_pac, heights[r][0])
+            reaches(r, COLS - 1, reach_atl, heights[r][COLS - 1])
+
+        # get intersection of atl and pac sets
+        return list(reach_pac & reach_atl)
