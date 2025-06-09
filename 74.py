@@ -1,46 +1,43 @@
 # https://leetcode.com/problems/search-a-2d-matrix/description/
 """
-search left side
-if l is smaller and r is greater then the l array would have target
-pass in that row into binsearch
+iterate over 0th value of each row
+if row[i][0] is greater than target, then the value would have to be in row[i-1][0]
 """
-class Solution(object):
-    def searchMatrix(matrix, target):
-        """
-        :type matrix: List[List[int]]
-        :type target: int
-        :rtype: bool
-        """
-        high = len(matrix)
-        low = 0
-        mid = (high+low)//2
-        target_arr_index = None
-        while low <= high:
-            mid = (low+high)//2
-            if matrix[mid][0] < target and matrix[mid][-1] > target:
-                target_arr_index = mid
-                break
-            elif matrix[mid][0] > target and matrix[mid][-1] > target:
-                high = mid -1
-            elif matrix[mid][0] < target and matrix[mid][-1] < target:
-                low = mid +1
-        if target_arr_index == None:
+
+
+class Solution:
+    def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
+        def binsearch(arr):
+            low = 0
+            high = len(arr) - 1
+            while low <= high:
+                mid = (low + high) // 2
+                if arr[mid] < target:
+                    low = mid + 1
+                elif arr[mid] > target:
+                    high = mid - 1
+                else:
+                    return True
             return False
 
-        nums = matrix[target_arr_index]
-        high = len(nums)
         low = 0
-        mid = len(nums) // 2
-
+        high = len(matrix) - 1
         while low <= high:
-            mid = (low + high) //2
-            if nums[mid] == target:
-                return True
-            elif nums[mid] < target:
+            mid = (low + high) // 2
+            if matrix[mid][0] < target:
+                if matrix[mid][-1] > target:
+                    return binsearch(matrix[mid])
                 low = mid + 1
-            elif nums[mid] > target:
+            elif matrix[mid][0] > target:
+                # if matrix[mid][-1] < target:
+                #     return binsearch(matrix[mid])
                 high = mid - 1
+            else:
+                return True
         return False
 
 
-print(Solution.searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]],3))
+print(
+    # Solution.searchMatrix(None, [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 3)
+    Solution.searchMatrix(None, [[1, 3]], 3)
+)
