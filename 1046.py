@@ -10,3 +10,6 @@ class Solution:
         if stones:
             return heapq.heappop(stones)
         return 0
+
+
+print(Solution.lastStoneWeight(None, [1, 2, 3, 4, 5, 6, 7]))
