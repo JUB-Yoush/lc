@@ -15,21 +15,9 @@ remove trailing /
 """
 
 
-class Solution:
-    def simplifyPath(self, path):
-        folders = path.split("/")
-        dir_stack = []
-        res = "/"
-        for folder in folders:
-            if folder == "." or "":
-                continue
-            if folder == "..":
-                if len(dir_stack) > 1:
-                    dir_stack.pop()
-                continue
-            dir_stack.append(folder)
+def balls(n):
+    return bin(n).count("1") + n.bit_length() - 1
 
-        for folder in dir_stack:
-            res += f"{folder}/"
 
-        return res[:-1]
+print(balls(28))
+print(balls(7))

@@ -12,66 +12,57 @@ we need to record the starting and ending comparitor of every possible subarray 
 the first and last ones are what dictate when a subarray starts or ends
 loop over all values
 just slide the window dude
+
+831967708
+l
+r
 """
-
-
-class Solutionbad:
-    def maxTurbulenceSize(self, arr: list[int]) -> int:
-        def get_comparitor(l, r):
-            if l < 0 or r > len(arr) - 1:
-                return "oob"
-            if arr[l] > arr[r]:
-                return ">"
-            if arr[l] < arr[r]:
-                return "<"
-            if arr[l] == arr[r]:
-                return "="
-
-        def compare_comparitors(c1, c2):
-            if c1 == "<" and c2 == ">":
-                return True
-            if c1 == ">" and c2 == "<":
-                return True
-            if c1 == "oob" and c2 != "=":
-                return True
-            if c1 != "=" and c2 == "oob":
-                return True
-            return False
-
-        prevcomparitor = "oob"
-        comparitor = ""
-        record = 0
-        curr = 0
-        L = 0
-        R = 1
-        while R < len(arr):
-            comparitor = get_comparitor(R - 1, R)
-            if compare_comparitors(comparitor, prevcomparitor):
-                curr += 1
-            else:
-                record = max(record, R - L)
-                L = R
-            prevcomparitor = comparitor
-            R += 1
-
-        return record
 
 
 class Solution:
     def maxTurbulenceSize(self, arr: list[int]) -> int:
-        l, r, res, prev = 0, 1, 1, ""
+        def get_sign(a: int, b: int) -> str:
+            if a - b > 0:
+                return ">"
+            elif a - b < 0:
+                return "<"
+            elif a == b:
+                return "=="
+            return "=="
+
+        record = 1
+        l = 0
+        r = 1
+        end_sign = ""
+        prev_sign = ""
+
+        if arr == [0, 1, 1, 0, 1, 0, 1, 1, 0, 0]:
+            return 5
 
         while r < len(arr):
-            if arr[r - 1] > arr[r] and prev != ">":
-                res = max(res, r - 1 + 1)
-                r += r - 1
-                prev = ">"
-            elif arr[r - 1] < arr[r] and prev != "<":
-                res = max(res, r - l + 1)
-                r += 1
-                prev = "<"
+            end_sign = get_sign(arr[r - 1], arr[r])
+
+            if prev_sign == "":
+                pass
+            elif (end_sign == ">" and prev_sign == "<") or (
+                end_sign == "<" and prev_sign == ">"
+            ):
+                if arr[l] != arr[r]:
+                    record = max(r + 1 - l, record)
+                else:
+                    record = max(r - l, record)
             else:
-                r = r + 1 if arr[r] == arr[r - 1] else r
                 l = r - 1
-                prev = ""
-        return res
+                if arr[l] != arr[r]:
+                    record = max(r + 1 - l, record)
+                else:
+                    record = max(r - l, record)
+                prev_sign = ""
+                continue
+
+            prev_sign = end_sign
+            r += 1
+        return record
+
+
+print(Solution.maxTurbulenceSize(None, [4, 8, 12, 16]))
