@@ -1,15 +1,5 @@
-#https://leetcode.com/problems/top-k-frequent-elements/
-import heapq
+# https://leetcode.com/problems/top-k-frequent-elements/
 class Solution:
-	def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-		res = []
-		frequency = {}
-		#populate hashmap
-		for num in nums:
-			if num not in frequency:
-				frequency[num] = 0
-			frequency[num] += 1
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+        freq = {}
 
-		values = frequency.values()
-		
-       
